@@ -111,7 +111,7 @@ notification = {_notification_rule_id: "<alpha numeric 16 characters, like: 0814
                 _notification_rule_name: "generic batch example notification",
                 _notification_endpoint_id: "<alpha numeric 16 characters, like: 081488f2dc59f000>",
                 _notification_endpoint_name: "My slack",}
-statuses = monitor["from"](start: -10s, fn: (r) = r["_check_name"] == "generic_batch_example")
+statuses = monitor["from"](start: -20s, fn: (r) = r["_check_name"] == "generic_batch_example")
 crit = statuses 
        |> filter(fn: (r) => r["level"] >=3)
 all_statuses = crit 
