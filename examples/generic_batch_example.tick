@@ -1,0 +1,32 @@
+// Parameters
+var info = {info_level} 
+var warn = {warn_level}
+var crit = {crit_level}
+var infoSig = 2.5
+var warnSig = 3
+var critSig = 3.5
+var period = 10s
+var every = 10s
+
+// Dataframe
+var data = batch
+  |query('''{InfluxQL_Query}''')
+    .period(period)
+    .every(every)
+    .groupBy('host')
+        
+// Thresholds
+var alert = data
+  |eval(lambda: sigma("stat"))
+    .as('sigma')
+    .keep()
+  |alert()
+    .id('{{ index .Tags "host"}}/{alert_metric}')
+    .message('{{ .ID }}:{{ index .Fields "stat" }}')
+    .info(lambda: "stat" > info OR "sigma" > infoSig)
+    .warn(lambda: "stat" > warn OR "sigma" > warnSig)
+    .crit(lambda: "stat" > crit OR "sigma" > critSig)
+
+// Alert
+alert
+  .log('/tmp/{alert_name}_log.txt')
