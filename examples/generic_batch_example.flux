@@ -60,14 +60,16 @@ data
     |> map(
         fn: (r) => ({r with
 level: if r._value < mean_val + math.abs(x: stddev_val) and r._value > mean_val - math.abs(x: stddev_val) or r._value > infoVal then 
-              alert(1, info, r._value)
+              alert(level: 1, type: info, eventValue: r._value)
             else if r._value < mean_val + math.abs(x: stddev_val) * float(v: 2) and r.airTemperature > mean_val - math.abs(x: stddev_val) * float(v: 2) or r._value > okVal then
-              alert(2, ok, r._value)
+              alert(level: 2, type: ok, eventValue: r._value)
             else if r._value < mean_val + math.abs(x: stddev_val) * float(v: 3) and r.airTemperature > mean_val - math.abs(x: stddev_val) * float(v: 3) or r._value > warnVal then
-              alert(3, warn, r._value)
+              alert(level: 3, type: warn, eventValue: r._value)
             else
-               alert(4, crit, r._value)
+               alert(level: 4, type: crit, eventValue: r._value)
 )
+
+    // Use the to() function to write the level created by the map() function if you desire. This is not shown.
 
 
 // Option 2–Use the monitor.check() function: 
