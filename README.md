@@ -1,5 +1,5 @@
 # TICK Scripts to Flux Task conversions
-This repo contains two converstions of TICKscripts from the [examples directory](https://github.com/influxdata/kapacitor/tree/master/examples) in the Kapacitor repo
+This repo contains two conversions of TICKscripts from the [examples directory](https://github.com/influxdata/kapacitor/tree/master/examples) in the Kapacitor repo
 
 ## Error Percent 
 This TICKscript and Flux Task example joins data from two different measurement to calculate the error percent. 
